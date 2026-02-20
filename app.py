@@ -1,8 +1,83 @@
 import streamlit as st
 
+
+from src.data import load_data
+from src.filters import render_filters, apply_filters
+from src.charts import plot_quality_hist, plot_corr_hist, plot_corr_heat
+from src.layouts import correlation_tab, insights_tab
+
+# -----------------------------
+# IMT 561 SOMM Group Dashboard: Wine Quality
+# -----------------------------
+
 def main() -> None:
-  pass
+    st.set_page_config(
+        page_title="Group SOMM Wine Quality Dashboard",
+        layout="wide",
+    )
+
+    st.title("Vinho Verde Quality Dashboard")
+    st.caption("Understanding How Physiochemical Properties Impact Wine Quality")
+
+    #Data loading (cached)
+    df = load_data("data/wine_data.csv")
+
+#Add a quick 'data sanity' check and show row count
+    st.write(f"Row count: {df.shape[0]}")
+    # - show first 5 rows (optional)
+    st.dataframe(df.head(5))
+
+ # -------------------------
+    # Filters (sidebar by default)
+    # -------------------------
+    # render_filters returns a dictionary of user selections
+    selections = render_filters(df)
+
+ # apply_filters returns a filtered dataframe based on selections
+    df_f = apply_filters(df, selections)
+    insights_tab(df_f)
+    st.divider()
+
+    # -------------------------
+    # Main body
+    # -------------------------
+
+    plot_quality_hist(df_f)
+    st.divider()
+
+    # Tabs layout by default (3 tabs)
+    tab_choice = st.radio(
+        "Choose a layout for the body:",
+        ["Tabs (3)", "Two Columns"],
+        horizontal=True,
+    )
+    if tab_choice == "Tabs (3)":
+           correlation_tab(df_f)
+    else:
+            # -------------------------
+            # 2 columns
+            # - left column: a chart
+            # - right column: a table
+            col1, col2 = st.columns(2)
+            with col1:
+                st.subheader("Property Correlation")
+                plot_corr_hist(df_f)
+
+            with col2:
+                st.subheader("Filtered Rows")
+                st.dataframe(df_f, use_container_width=True, height=420)
+
+
+
+
+
+
+
+
+
 
 
 if __name__ == "__main__":
     main()
+
+
