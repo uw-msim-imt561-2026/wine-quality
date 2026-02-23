@@ -69,6 +69,10 @@ def main() -> None:
 
 
 
+#Still need heatmaps and correlation graphs (idk how to differ those by page)
+#Do we want to find a plotly graph for bar chart correlation?
+#Could figure out how to do a side by side page
+#Also need to figure out how to do property guide in streamlit
 
 
 
