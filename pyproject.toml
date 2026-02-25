@@ -1,5 +1,5 @@
 [project]
-name = "Wine Quality"
+name = "Wine-Quality"
 version = "1.0.0"
 description = "<UPDATE ME>"
 authors = [
@@ -7,7 +7,7 @@ authors = [
   {name = "Your Name", email = "you@example.com"},
   {name = "Your Name", email = "you@example.com"}
 ]
-requires-python = ">=3.14"
+requires-python = ">=3.11.12"
 dependencies = [
     "streamlit (>=1.54.0,<2.0.0)",
     "pandas (>=2.0.0,<3.0.0)",
@@ -18,3 +18,4 @@ dependencies = [
 [build-system]
 requires = ["poetry-core>=2.0.0,<3.0.0"]
 build-backend = "poetry.core.masonry.api"
+package-mode = false
