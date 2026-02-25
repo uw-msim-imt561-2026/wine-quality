@@ -23,9 +23,9 @@ def main() -> None:
     df = load_data("data/wine_data.csv")
 
 #Add a quick 'data sanity' check and show row count
-    st.write(f"Row count: {df.shape[0]}")
-    # - show first 5 rows (optional)
-    st.dataframe(df.head(5))
+    # st.write(f"Row count: {df.shape[0]}")
+    # # - show first 5 rows (optional)
+    # st.dataframe(df.head(5))
 
  # -------------------------
     # Filters (sidebar by default)
