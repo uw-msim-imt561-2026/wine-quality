@@ -33,4 +33,5 @@ def apply_filters(df: pd.DataFrame, selections: dict) -> pd.DataFrame:
     q_min, q_max = selections["quality_range"]
     out = out[out["quality"].between(q_min, q_max)]
 
+
     return out.reset_index(drop=True)

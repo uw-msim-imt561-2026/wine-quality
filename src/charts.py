@@ -4,21 +4,33 @@ import streamlit as st
 import matplotlib.pyplot as plt
 from matplotlib.colors import LinearSegmentedColormap
 import seaborn as sns
+from src.filters import render_filters, apply_filters
 
-
-def plot_quality_hist(df: pd.DataFrame) -> None:
+def plot_quality_hist(df: pd.DataFrame, side_by_side:bool) -> None:
     """Plotting a distribution of quality."""
+
     if df.empty:
         st.info("No rows match your filters.")
         return
 
-    fig = px.histogram(
-        df,
-        x="quality",
-        nbins=10,
-        title='Distribution of Wine Quality Ratings',
-        color_discrete_sequence=['#580F41']
-    )
+    if side_by_side:
+        fig = px.histogram(
+            df,
+            x="quality",
+            color="wine_type",
+            barmode="group",
+            title="Quality Distribution by Wine Type",
+            color_discrete_map={"red": "#580F41", "white": "#F0E68C"},
+            labels={"quality": "Quality Rating", "count": "Count", "wine_type": "Wine Type"},
+        )
+    else:
+        fig = px.histogram(
+            df,
+            x="quality",
+            nbins=10,
+            title="Distribution of Wine Quality Ratings",
+            color_discrete_sequence=["#580F41"],
+        )
 
     st.plotly_chart(fig, use_container_width=True)
 
@@ -52,3 +64,44 @@ def plot_corr_heat(df: pd.DataFrame) -> None:
     sns.heatmap(corr_matrix, annot=True, cmap=custom_cmap, center=0, fmt='.2f', ax=ax)
     ax.set_title('Correlation Heatmap')
     st.pyplot(fig)
+
+    st.plotly_chart(fig, use_container_width=True)
+
+
+def plot_scatter_quality(df: pd.DataFrame, property_name: list) -> None:
+    """Scatter plot for quality distribution."""
+    property_multiselect = st.multiselect(
+        'Property',
+        property_name,
+        default=property_name
+    )
+
+    if not property_multiselect:
+        st.info("Please select at least one property.")
+        return
+
+    for prop in property_multiselect:
+        mean_df = df.groupby('quality')[prop].mean().reset_index()
+
+        fig = px.scatter(
+            df,
+            x='quality',
+            y=prop,
+            opacity=0.1,
+            title=f'{prop.title()} vs Quality Score',
+            labels={'quality': 'Quality Score', prop: prop.title()},
+            color_discrete_sequence=['mediumpurple']
+        )
+
+        fig.add_scatter(
+            x=mean_df['quality'],
+            y=mean_df[prop],
+            mode='lines+markers',
+            line=dict(color='darkviolet', width=2),
+            name='Mean'
+        )
+
+        st.plotly_chart(fig, use_container_width=True)
+
+
+

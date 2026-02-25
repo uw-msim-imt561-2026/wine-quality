@@ -1,9 +1,9 @@
 import streamlit as st
 
-
+import src.filters
 from src.data import load_data
 from src.filters import render_filters, apply_filters
-from src.charts import plot_quality_hist, plot_corr_hist, plot_corr_heat
+from src.charts import plot_quality_hist, plot_corr_hist, plot_corr_heat, plot_scatter_quality
 from src.layouts import correlation_tab, insights_tab
 
 # -----------------------------
@@ -42,7 +42,13 @@ def main() -> None:
     # Main body
     # -------------------------
 
-    plot_quality_hist(df_f)
+    if selections["wine_type"] == "All":
+        side_by_side = st.checkbox("View side-by-side", value=False)
+    else:
+        side_by_side = False
+
+    plot_quality_hist(df_f, side_by_side)
+
     st.divider()
 
     # Tabs layout by default (3 tabs)
@@ -67,14 +73,18 @@ def main() -> None:
                 st.subheader("Filtered Rows")
                 st.dataframe(df_f, use_container_width=True, height=420)
 
+    st.divider()
+
+    property_name = ['alcohol','fixed acidity','free sulfur dioxide','total sulfur dioxide', 'volatile acidity', 'citric acid', 'sulphates',
+            'density', 'chlorides', 'pH', 'residual sugar']
+
+    plot_scatter_quality(df_f,property_name)
 
 
 #Still need heatmaps and correlation graphs (idk how to differ those by page)
 #Do we want to find a plotly graph for bar chart correlation?
 #Could figure out how to do a side by side page
 #Also need to figure out how to do property guide in streamlit
-
-
 
 
 
