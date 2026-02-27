@@ -46,7 +46,7 @@ def plot_corr_hist(df: pd.DataFrame) -> None:
 
     fig, ax = plt.subplots(figsize=(10, 6))
     ax.barh(corr_with_quality.index, corr_with_quality.values, color='#580F41')
-    ax.set_title('Correlation of Features with Wine Quality (All Wines)', fontsize=14, fontweight='bold')
+    ax.set_title('Correlation of Features with Wine Quality', fontsize=14, fontweight='bold')
     ax.set_xlabel('Correlation')
     st.pyplot(fig)
 
@@ -68,40 +68,50 @@ def plot_corr_heat(df: pd.DataFrame) -> None:
     st.plotly_chart(fig, use_container_width=True)
 
 
-def plot_scatter_quality(df: pd.DataFrame, property_name: list) -> None:
+def plot_scatter_quality(df: pd.DataFrame) -> None:
     """Scatter plot for quality distribution."""
-    property_multiselect = st.multiselect(
-        'Property',
-        property_name,
-        default=property_name
+
+    wine_type = df['wine_type'].unique()
+
+    if len(wine_type) == 1 and wine_type[0] == "red":
+        st.info("Red Wines: **Alcohol** is the strongest positive correlation. **Volatile Acidity** is the biggest negative factor in reds.")
+    elif len(wine_type) == 1 and wine_type[0] == "white":
+        st.info("White Wines: **Alcohol** is the strongest positive correlation. **Density** is the biggest negative factor in whites.")
+    else:
+        st.info("All Wines: **Alcohol** has a strong positive correlation. **Volatile acidity** and **density** are the largest negative factors.")
+
+    property_options = ['alcohol', 'fixed acidity', 'free sulfur dioxide', 'total sulfur dioxide',
+                        'volatile acidity', 'citric acid', 'sulphates',
+                        'density', 'chlorides', 'pH', 'residual sugar']
+
+    prop = st.selectbox(
+        "Select a Property to See Correlation with Quality",
+        options=property_options,
+        index=0
     )
 
-    if not property_multiselect:
-        st.info("Please select at least one property.")
-        return
+    mean_df = df.groupby('quality')[prop].mean().reset_index()
 
-    for prop in property_multiselect:
-        mean_df = df.groupby('quality')[prop].mean().reset_index()
+    fig = px.scatter(
+        df,
+        x=prop,
+        y='quality',
+        opacity=0.3,
+        title=f'{prop.title()} vs Quality',
+        labels={'quality': 'Quality', prop: prop.title()},
+        color_discrete_sequence=['#580F41']
+    )
 
-        fig = px.scatter(
-            df,
-            x='quality',
-            y=prop,
-            opacity=0.1,
-            title=f'{prop.title()} vs Quality Score',
-            labels={'quality': 'Quality Score', prop: prop.title()},
-            color_discrete_sequence=['mediumpurple']
-        )
+    fig.add_scatter(
+        x=mean_df[prop],
+        y=mean_df['quality'],
+        mode='lines+markers',
+        line=dict(color='darkviolet', width=2, dash='dash'),
+        marker=dict(size=8),
+        name='Mean'
+    )
 
-        fig.add_scatter(
-            x=mean_df['quality'],
-            y=mean_df[prop],
-            mode='lines+markers',
-            line=dict(color='darkviolet', width=2),
-            name='Mean'
-        )
-
-        st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig, use_container_width=True)
 
 
 

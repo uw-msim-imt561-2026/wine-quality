@@ -14,10 +14,15 @@ def main() -> None:
     st.set_page_config(
         page_title="Group SOMM Wine Quality Dashboard",
         layout="wide",
+
     )
 
-    st.title("Vinho Verde Quality Dashboard")
-    st.caption("Understanding How Physiochemical Properties Impact Wine Quality")
+
+    with st.container(border=True):
+        st.title("Vinho Verde Quality Dashboard")
+        st.caption("Understanding How Physiochemical Properties Impact Wine Quality")
+
+
 
     #Data loading (cached)
     df = load_data("data/wine_data.csv")
@@ -47,7 +52,8 @@ def main() -> None:
     else:
         side_by_side = False
 
-    plot_quality_hist(df_f, side_by_side)
+    with st.container(border=True):
+        plot_quality_hist(df_f, side_by_side)
 
     st.divider()
 
@@ -58,13 +64,14 @@ def main() -> None:
         horizontal=True,
     )
     if tab_choice == "Tabs (3)":
+        with st.container(border=True):
            correlation_tab(df_f)
     else:
             # -------------------------
             # 2 columns
             # - left column: a chart
             # - right column: a table
-            col1, col2 = st.columns(2)
+            col1, col2 = st.columns(2, border =True)
             with col1:
                 st.subheader("Property Correlation")
                 plot_corr_hist(df_f)
@@ -74,11 +81,8 @@ def main() -> None:
                 st.dataframe(df_f, use_container_width=True, height=420)
 
     st.divider()
-
-    property_name = ['alcohol','fixed acidity','free sulfur dioxide','total sulfur dioxide', 'volatile acidity', 'citric acid', 'sulphates',
-            'density', 'chlorides', 'pH', 'residual sugar']
-
-    plot_scatter_quality(df_f,property_name)
+    with st.container(border=True):
+        plot_scatter_quality(df_f)
 
 
 #Still need heatmaps and correlation graphs (idk how to differ those by page)
