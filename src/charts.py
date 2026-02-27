@@ -65,7 +65,6 @@ def plot_corr_heat(df: pd.DataFrame) -> None:
     ax.set_title('Correlation Heatmap')
     st.pyplot(fig)
 
-    st.plotly_chart(fig, use_container_width=True)
 
 
 def plot_scatter_quality(df: pd.DataFrame) -> None:
@@ -109,6 +108,62 @@ def plot_scatter_quality(df: pd.DataFrame) -> None:
         line=dict(color='darkviolet', width=2, dash='dash'),
         marker=dict(size=8),
         name='Mean'
+    )
+
+    st.plotly_chart(fig, use_container_width=True)
+
+
+# -----------------------------
+# Plotly Correlation Charts
+# -----------------------------
+
+def plot_corr_bar_plotly(df: pd.DataFrame) -> None:
+    """Plotly bar chart showing correlation with wine quality."""
+    if df.empty:
+        st.info("No rows match your filters.")
+        return
+
+    corr = (
+        df.select_dtypes(include=["float64", "int64"])
+        .corr(numeric_only=True)["quality"]
+        .drop("quality")
+        .sort_values()
+    )
+
+    corr_df = corr.reset_index()
+    corr_df.columns = ["Feature", "Correlation"]
+
+    fig = px.bar(
+        corr_df,
+        x="Correlation",
+        y="Feature",
+        orientation="h",
+        title="Correlation of Features with Wine Quality (Plotly)",
+        color_discrete_sequence=["#580F41"],
+        text="Correlation",
+    )
+
+    fig.update_traces(texttemplate="%{text:.2f}", textposition="outside")
+
+    st.plotly_chart(fig, use_container_width=True)
+
+
+def plot_corr_heat_plotly(df: pd.DataFrame) -> None:
+    """Plotly heatmap for correlations."""
+    if df.empty:
+        st.info("No rows match your filters.")
+        return
+
+    corr_matrix = df.select_dtypes(include=["float64", "int64"]).corr()
+
+    fig = px.imshow(
+        corr_matrix,
+        text_auto=".2f",
+        aspect="auto",
+        title="Correlation Heatmap (Plotly)",
+        color_continuous_scale="RdBu",
+        zmin=-1,
+        zmax=1,
     )
 
     st.plotly_chart(fig, use_container_width=True)

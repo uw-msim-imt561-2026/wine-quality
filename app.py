@@ -3,9 +3,17 @@ import streamlit as st
 import src.filters
 from src.data import load_data
 from src.filters import render_filters, apply_filters
-from src.charts import plot_quality_hist, plot_corr_hist, plot_corr_heat, plot_scatter_quality
-from src.layouts import correlation_tab, insights_tab
 
+from src.charts import (
+    plot_quality_hist,
+    plot_corr_hist,
+    plot_corr_heat,
+    plot_scatter_quality,
+    plot_corr_bar_plotly,
+    plot_corr_heat_plotly,
+)
+
+from src.layouts import correlation_tab, insights_tab
 # -----------------------------
 # IMT 561 SOMM Group Dashboard: Wine Quality
 # -----------------------------
@@ -74,7 +82,9 @@ def main() -> None:
             col1, col2 = st.columns(2, border =True)
             with col1:
                 st.subheader("Property Correlation")
-                plot_corr_hist(df_f)
+                plot_corr_bar_plotly(df_f)
+                st.divider()
+                plot_corr_heat_plotly(df_f)
 
             with col2:
                 st.subheader("Filtered Rows")
