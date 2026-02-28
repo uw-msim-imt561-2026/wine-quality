@@ -79,17 +79,33 @@ def main() -> None:
             # 2 columns
             # - left column: a chart
             # - right column: a table
-            col1, col2 = st.columns(2, border =True)
-            with col1:
+
+            col_left, col_right = st.columns(2, border=True)
+
+            with col_left:
                 st.subheader("Property Correlation")
-                plot_corr_bar_plotly(df_f)
+
+                # side-by-side only when showing All
+                if df_f["wine_type"].nunique() > 1:
+                    c1, c2 = st.columns(2, gap="large")
+
+                    with c1:
+                        plot_corr_bar_plotly(df_f[df_f["wine_type"] == "red"], "Red Wine Correlation")
+
+                    with c2:
+                        plot_corr_bar_plotly(df_f[df_f["wine_type"] == "white"], "White Wine Correlation")
+                else:
+                    wine_label = df_f["wine_type"].iloc[0].title()
+                    plot_corr_bar_plotly(df_f, f"{wine_label} Wine Correlation")
+
                 st.divider()
+
+                # Heatmap stays full width (within the left panel)
                 plot_corr_heat_plotly(df_f)
 
-            with col2:
+            with col_right:
                 st.subheader("Filtered Rows")
                 st.dataframe(df_f, use_container_width=True, height=420)
-
     st.divider()
     with st.container(border=True):
         plot_scatter_quality(df_f)

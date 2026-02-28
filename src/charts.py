@@ -94,11 +94,14 @@ def plot_scatter_quality(df: pd.DataFrame) -> None:
     fig = px.scatter(
         df,
         x=prop,
-        y='quality',
+        y="quality",
         opacity=0.3,
-        title=f'{prop.title()} vs Quality',
-        labels={'quality': 'Quality', prop: prop.title()},
-        color_discrete_sequence=['#580F41']
+        color="wine_type",
+        hover_data={
+            prop: ":.2f",
+            "quality": True,
+            "wine_type": True,
+        },
     )
 
     fig.add_scatter(
@@ -117,7 +120,7 @@ def plot_scatter_quality(df: pd.DataFrame) -> None:
 # Plotly Correlation Charts
 # -----------------------------
 
-def plot_corr_bar_plotly(df: pd.DataFrame) -> None:
+def plot_corr_bar_plotly(df: pd.DataFrame, title: str = "") -> None:
     """Plotly bar chart showing correlation with wine quality."""
     if df.empty:
         st.info("No rows match your filters.")
@@ -138,12 +141,24 @@ def plot_corr_bar_plotly(df: pd.DataFrame) -> None:
         x="Correlation",
         y="Feature",
         orientation="h",
-        title="Correlation of Features with Wine Quality (Plotly)",
+        title="Correlation with Wine Quality",
         color_discrete_sequence=["#580F41"],
-        text="Correlation",
+        hover_data={
+            "Feature": True,
+            "Correlation": ":.3f",
+        },
+    )
+    fig.update_traces(
+        hovertemplate=
+        "<b>%{y}</b><br>" +
+        "Correlation: %{x:.3f}<extra></extra>"
     )
 
-    fig.update_traces(texttemplate="%{text:.2f}", textposition="outside")
+    # IMPORTANT FIX for side-by-side layout
+    fig.update_layout(
+        height=420,
+        margin=dict(l=10, r=10, t=50, b=10),
+    )
 
     st.plotly_chart(fig, use_container_width=True)
 
@@ -161,9 +176,20 @@ def plot_corr_heat_plotly(df: pd.DataFrame) -> None:
         text_auto=".2f",
         aspect="auto",
         title="Correlation Heatmap (Plotly)",
-        color_continuous_scale="RdBu",
+        color_continuous_scale=[
+            [0.0, "#580F41"],  # deep purple (negative correlation)
+            [0.5, "white"],  # neutral
+            [1.0, "#D0E68C"],  # soft green (positive correlation)
+        ],
         zmin=-1,
         zmax=1,
+    )
+
+    fig.update_traces(
+        hovertemplate=
+        "Feature X: %{x}<br>" +
+        "Feature Y: %{y}<br>" +
+        "Correlation: %{z:.3f}<extra></extra>"
     )
 
     st.plotly_chart(fig, use_container_width=True)
