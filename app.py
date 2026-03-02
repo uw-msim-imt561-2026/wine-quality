@@ -24,8 +24,8 @@ def main() -> None:
         layout="wide",
     )
 
-    # FULL WIDTH HEADER IMAGE
-    st.image("assets/logo.png.jpg", use_container_width=True)
+   #Header Attempt
+    st.image("assets/newback4.png", use_container_width=True)
 
     st.markdown(
         """
@@ -34,10 +34,10 @@ def main() -> None:
         Understanding How Physiochemical Properties Impact Wine Quality
         </p>
         """,
-
         unsafe_allow_html=True
-
     )
+
+    st.markdown("---")
 
 
 

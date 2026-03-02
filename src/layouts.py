@@ -1,6 +1,7 @@
 import pandas as pd
 import streamlit as st
 
+
 # Shrink font and wrap text in key metrics so it does not truncate
 st.markdown("""
    <style>
