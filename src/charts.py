@@ -32,6 +32,10 @@ def plot_quality_hist(df: pd.DataFrame, side_by_side:bool) -> None:
             color_discrete_sequence=["#580F41"],
         )
 
+
+
+
+
     st.plotly_chart(fig, use_container_width=True)
 
 
@@ -136,18 +140,25 @@ def plot_corr_bar_plotly(df: pd.DataFrame, title: str = "") -> None:
     corr_df = corr.reset_index()
     corr_df.columns = ["Feature", "Correlation"]
 
+    # ✅ NEW: pick bar color based on wine type (red vs white)
+    wine_type = str(df["wine_type"].iloc[0]).strip().lower()
+    bar_color = "#580F41" if wine_type == "red" else "#F0E68C"
+
     fig = px.bar(
         corr_df,
         x="Correlation",
         y="Feature",
         orientation="h",
         title="Correlation with Wine Quality",
-        color_discrete_sequence=["#580F41"],
+        color_discrete_sequence=[bar_color],
         hover_data={
             "Feature": True,
             "Correlation": ":.3f",
         },
     )
+
+
+
     fig.update_traces(
         hovertemplate=
         "<b>%{y}</b><br>" +

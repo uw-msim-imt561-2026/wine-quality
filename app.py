@@ -22,8 +22,18 @@ def main() -> None:
     st.set_page_config(
         page_title="Group SOMM Wine Quality Dashboard",
         layout="wide",
-
     )
+
+    # ✅ HEADER WITH IMAGE
+    with st.container(border=True):
+        left, right = st.columns([1, 6], vertical_alignment="center")
+
+        with left:
+            st.image("assets/logo.png", width=90)
+
+        with right:
+            st.title("Vinho Verde Quality Dashboard")
+            st.caption("Understanding How Physiochemical Properties Impact Wine Quality")
 
 
     with st.container(border=True):

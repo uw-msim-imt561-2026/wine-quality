@@ -55,12 +55,22 @@ def correlation_tab(df_f):
     with tab2:
         st.subheader("Property Correlation (Red vs White)")
 
-        if df_f["wine_type"].nunique() > 1:
+        wt = df_f["wine_type"].astype(str).str.strip().str.lower()
+
+        if wt.nunique() > 1:
+            red_df = df_f[wt == "red"]
+            white_df = df_f[wt == "white"]
+
             c1, c2 = st.columns(2, gap="large")
+
             with c1:
-                plot_corr_bar_plotly(df_f[df_f["wine_type"] == "red"], "Red Wine Correlation")
+                st.markdown("##  Red Wine")
+                plot_corr_bar_plotly(red_df, "Correlation with Wine Quality")
+
             with c2:
-                plot_corr_bar_plotly(df_f[df_f["wine_type"] == "white"], "White Wine Correlation")
+                st.markdown("##  White Wine")
+                plot_corr_bar_plotly(white_df, "Correlation with Wine Quality")
+
         else:
             st.info("Select Wine Type = 'All' to view side-by-side comparisons.")
 
