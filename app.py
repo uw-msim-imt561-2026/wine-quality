@@ -24,21 +24,20 @@ def main() -> None:
         layout="wide",
     )
 
-    # ✅ HEADER WITH IMAGE
-    with st.container(border=True):
-        left, right = st.columns([1, 6], vertical_alignment="center")
+    # FULL WIDTH HEADER IMAGE
+    st.image("assets/logo.png.jpg", use_container_width=True)
 
-        with left:
-            st.image("assets/logo.png", width=90)
+    st.markdown(
+        """
+        <h1 style='margin-bottom:0;'>Vinho Verde Quality Dashboard</h1>
+        <p style='margin-top:0; color:gray;'>
+        Understanding How Physiochemical Properties Impact Wine Quality
+        </p>
+        """,
 
-        with right:
-            st.title("Vinho Verde Quality Dashboard")
-            st.caption("Understanding How Physiochemical Properties Impact Wine Quality")
+        unsafe_allow_html=True
 
-
-    with st.container(border=True):
-        st.title("Vinho Verde Quality Dashboard")
-        st.caption("Understanding How Physiochemical Properties Impact Wine Quality")
+    )
 
 
 
