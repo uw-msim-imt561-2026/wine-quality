@@ -1,6 +1,20 @@
 import pandas as pd
 import streamlit as st
 
+# Shrink font and wrap text in key metrics so it does not truncate
+st.markdown("""
+   <style>
+   [data-testid="stMetricLabel"] {
+       font-size: 15px; /* Adjust label size */
+       white-space: normal; /* Enable wrapping */
+       word-break: break-word; /* Force break */
+   }
+   [data-testid="stMetricValue"] {
+       font-size: 20px; /* Adjust value size */
+   }
+   </style>
+   """, unsafe_allow_html=True)
+
 from src.charts import (
     plot_corr_hist,
     plot_corr_heat,
