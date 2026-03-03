@@ -77,10 +77,10 @@ def main() -> None:
     # Tabs layout by default (3 tabs)
     tab_choice = st.radio(
         "Choose a layout for the body:",
-        ["Tabs (3)", "Two Columns"],
+        ["Tabs", "Two Columns with Data"],
         horizontal=True,
     )
-    if tab_choice == "Tabs (3)":
+    if tab_choice == "Tabs":
         with st.container(border=True):
            correlation_tab(df_f)
     else:
