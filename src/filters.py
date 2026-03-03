@@ -31,7 +31,7 @@ def render_filters(df: pd.DataFrame) -> dict:
         "Residual Sugar": "Determines sweetness. A balance between acidity and sugar is key for quality perception.",
         "Sulphates": "A wine preservative that contributes to antimicrobial stability and enhances flavor.",
         "Total Sulfur Dioxide": "The total SO2. SO2 is an antioxidant and antimicrobial preservative in wine, preventing spoilage, browning, and unwanted fermentation. If too high, it becomes noticeable to the nose and detracts from quality.",
-        "Volatile Acidity": "Volatile acids, such as acetic acid, can cause an unpleasant vinegar taste at higher concentrations."
+        "Volatile Acidity": "Volatile acids, such as acetic acid, can cause an unpleasant vinegar taste at higher concentrations. "
     }
 
     for prop, description in wine_guide.items():
