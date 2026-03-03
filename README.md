@@ -1,10 +1,10 @@
-# wine-quality
-
-
 # IMT 561 Streamlit Wine Quality Dashboard
+
+## Submission
+- Streamlit Community Cloud Link: https://appapppy-zw78qomwpzfqrhzuhpu2gl.streamlit.app/
+
+
 SOMM is consulting for the Viticulture Commission of the Vinho Verde Region (CVRVV) in Portugal, the regulatory body responsible for certifying and promoting Vinho Verde wines from Northern Portugal. It controls, certifies, and promotes Vinho Verde wines, ensuring quality through laboratory analysis and granting the official seal of guarantee on bottles (Verde, n.d.). Our stakeholders are wondering what physicochemical qualities impact the quality of the wine and want to help wine companies produce high quality wine by understanding which properties affect quality.
-
-
 
 
 The dataset utilized contains 6,497 Portuguese Vinho Verde wine samples (4,898 white, 1,599 red) with 11 physicochemical properties and quality ratings from human tasters on a 0-10 scale. The data was collected by researchers Cortez et al. (2009) from the Viticulture Commission of the Vinho Verde Region (CVRVV). The data was collected for the intended purpose of “‘predicting’ human wine taste preferences that is based on easily available analytical tests at the certification step” (Cortez et al., 2009).
@@ -42,6 +42,3 @@ streamlit run app.py
 - Which properties do not affect quality?
 - Do physiochemical properties affect the quality of white versus red wines differently?
 
-
-## Submission
-- Streamlit Community Cloud Link: https://appapppy-zw78qomwpzfqrhzuhpu2gl.streamlit.app/

@@ -29,7 +29,7 @@ def render_filters(df: pd.DataFrame) -> dict:
         "Free Sulfur Dioxide": "Prevents microbial growth and oxidation, helping maintain the wine's freshness.",
         "pH": "The measure of acidity. Determines wine stability and shelf life.",
         "Residual Sugar": "Determines sweetness. A balance between acidity and sugar is key for quality perception.",
-        "Sulphates": "A wine preservative that contributes to antimicrobial stability and enhances flavor'.",
+        "Sulphates": "A wine preservative that contributes to antimicrobial stability and enhances flavor.",
         "Total Sulfur Dioxide": "The total SO2. If too high, it becomes noticeable to the nose and detracts from quality.",
         "Volatile Acidity": "Volatile acids, such as acetic acid, can cause an unpleasant vinegar taste at higher concentrations."
     }
