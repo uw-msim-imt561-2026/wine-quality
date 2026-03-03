@@ -21,16 +21,16 @@ def render_filters(df: pd.DataFrame) -> dict:
     st.sidebar.header ('Property Guide')
     st.sidebar.info ("Click a property to see how it influences wine quality.")
     wine_guide = {
-        "Alcohol": "Higher alcohol levels are often associated with higher quality ratings.",
+        "Alcohol": "The amount of alcohol in the wine. The more alcohol, the more warmth. Higher alcohol levels are often associated with higher quality ratings. Alcohol concentration can be increased or decreased by monitoring the grape sugar concentration prior to the harvest.",
         "Chlorides": "The amount of salt in the wine. High levels can make the wine taste salty and decrease quality.",
         "Citric Acid": "Adds a fresh, citrusy flavor and can act as a preservative.",
-        "Density": "Related to alcohol and sugar content. High-quality wines often have specific density profiles based on style.",
+        "Density": "Often referred to as the body. This is mouthfeel to determine how heavy or light the wine feels. Very related to alcohol and sugar content. Key indicators include color depth (light/dark), the speed of wine legs/tears, typically indicating higher alcohol or sugar content.",
         "Fixed Acidity": "Essential for freshness; it provides the tartness that balances the wine's sweetness.",
         "Free Sulfur Dioxide": "Prevents microbial growth and oxidation, helping maintain the wine's freshness.",
         "pH": "The measure of acidity. Determines wine stability and shelf life.",
         "Residual Sugar": "Determines sweetness. A balance between acidity and sugar is key for quality perception.",
         "Sulphates": "A wine preservative that contributes to antimicrobial stability and enhances flavor.",
-        "Total Sulfur Dioxide": "The total SO2. If too high, it becomes noticeable to the nose and detracts from quality.",
+        "Total Sulfur Dioxide": "The total SO2. SO2 is an antioxidant and antimicrobial preservative in wine, preventing spoilage, browning, and unwanted fermentation. If too high, it becomes noticeable to the nose and detracts from quality.",
         "Volatile Acidity": "Volatile acids, such as acetic acid, can cause an unpleasant vinegar taste at higher concentrations."
     }
 
