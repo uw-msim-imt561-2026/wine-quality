@@ -23,16 +23,6 @@ Therefore, SOMM’s primary stakeholder is CVRVV as well as the vineyards and wi
 However, there are some limitations in the application of the insights, as there is no data about grape types, wine brand, or wine selling price. Additionally, there are many more normal wines rather than excellent or poor ones, and human tasters are subjective, as they are based on the experience and knowledge of the wine experts (Cortez et al., 2009).
 
 
-##To Open Up Our Environment
-```bash
-python -m venv .venv
-source .venv/bin/activate  # (Windows: .venv\Scripts\activate)
-pip install -r requirements.txt
-streamlit run app.py
-```
-
-
-
 ## Questions We Are Answering
 - What factors most influence Vinho Verde wine quality?
 - How can we predict quality?
