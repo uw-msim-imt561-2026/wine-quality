@@ -11,7 +11,7 @@ st.markdown("""
        word-break: break-word; /* Force break */
    }
    [data-testid="stMetricValue"] {
-       font-size: 20px; /* Adjust value size */
+       font-size: 18px; /* Adjust value size */
    }
    </style>
    """, unsafe_allow_html=True)
