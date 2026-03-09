@@ -58,7 +58,7 @@ def insights_tab(df: pd.DataFrame) -> None:
 
 def correlation_tab(df_f):
     tab1, tab2, tab3, tab4 = st.tabs(
-        ["Bar Graph", "Bar Graph Side-by-Side", "Heatmap", "Table"]
+        ["Bar Graph", "Bar Graph Red vs. White", "Heatmap", "Table"]
     )
 
     # 1) Single Bar Graph (uses whatever is filtered)

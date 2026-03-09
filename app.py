@@ -65,7 +65,7 @@ def main() -> None:
     # -------------------------
 
     if selections["wine_type"] == "All":
-        side_by_side = st.checkbox("View side-by-side", value=False)
+        side_by_side = st.checkbox("Compare red and white", value=False)
     else:
         side_by_side = False
 
@@ -118,14 +118,6 @@ def main() -> None:
     st.divider()
     with st.container(border=True):
         plot_scatter_quality(df_f)
-
-
-#Still need heatmaps and correlation graphs (idk how to differ those by page)
-#Do we want to find a plotly graph for bar chart correlation?
-#Could figure out how to do a side by side page
-#Also need to figure out how to do property guide in streamlit
-
-
 
 
 

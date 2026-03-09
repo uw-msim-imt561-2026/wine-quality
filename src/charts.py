@@ -140,7 +140,7 @@ def plot_corr_bar_plotly(df: pd.DataFrame, title: str = "") -> None:
     corr_df = corr.reset_index()
     corr_df.columns = ["Feature", "Correlation"]
 
-    # ✅ NEW: pick bar color based on wine type (red vs white)
+    #pick bar color based on wine type (red vs white)
     wine_type = str(df["wine_type"].iloc[0]).strip().lower()
     bar_color = "#580F41" if wine_type == "red" else "#F0E68C"
 
@@ -165,7 +165,7 @@ def plot_corr_bar_plotly(df: pd.DataFrame, title: str = "") -> None:
         "Correlation: %{x:.3f}<extra></extra>"
     )
 
-    # IMPORTANT FIX for side-by-side layout
+    # Fix for side-by-side layout
     fig.update_layout(
         height=420,
         margin=dict(l=10, r=10, t=50, b=10),

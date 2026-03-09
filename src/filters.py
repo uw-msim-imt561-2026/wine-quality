@@ -8,12 +8,12 @@ def render_filters(df: pd.DataFrame) -> dict:
     wine_type = ["All"] + sorted(df["wine_type"].unique().tolist())
     wine_types = st.sidebar.selectbox("View by Wine Type", wine_type, index=0)
 
-    min_q, max_q = float(df["quality"].min()), float(df["quality"].max())
+    #min_q, max_q = float(df["quality"].min()), float(df["quality"].max())
     q_range = st.sidebar.slider(
         "Quality Rating",
-        min_value=min_q,
-        max_value=max_q,
-        value=(min_q, max_q),
+        min_value=0.0,
+        max_value=10.0,
+        value=(0.0, 10.0),
         step=0.5,
     )
 
